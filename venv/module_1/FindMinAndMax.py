@@ -5,11 +5,14 @@ def find_min_and_max():
             try:
                 numbers[index] = int(numbers[index])
             except ValueError:
-                print('It is not digit')
+                pass
             except TypeError:
                 pass
 
-    sorted_numbers = sorted(list(filter(lambda x: type(x) == int, numbers)))
+    just_numbers =  [index for index in numbers if type(index) is int]
 
-    print(numbers)
-    print(f"Max value: {sorted_numbers[-1]} and min value: {sorted_numbers[0]}")
+
+    print(just_numbers)
+    print(f"Max value: {max(just_numbers)} and min value: {min(just_numbers)}")
+
+find_min_and_max()

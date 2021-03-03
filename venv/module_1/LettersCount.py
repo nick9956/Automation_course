@@ -3,22 +3,23 @@ def letters_count():
 Python features a dynamic type system and automatic memory management. It supports multiple programming paradigms, including object-oriented, imperative, functional and procedural, and has a large and comprehensive standard library.
 Python interpreters are available for many operating systems. CPython, the reference implementation of Python, is open source software and has a community-based development model, as do nearly all of Python's other implementations. Python and CPython are managed by the non-profit Python Software Foundation. Привет из Харькова!
 '''
-    most_common_letter = 0
-    Letter_counter = set()
+
+    Letter_counter = {}
+
     python_count = text.count("Python")
+    for index in text.lower():
+        if index.isalpha():
+            if index in Letter_counter:
+                Letter_counter[index] += 1
+            else:
+                Letter_counter[index] = 1
 
-    for item in text:
-        if item.isalpha():
-            if most_common_letter < text.count(item):
-                most_common_letter = text.count(item)
-            elif most_common_letter == text.count(item):
-                Letter_counter.add(item)
+    most_common_letter = max(Letter_counter, key=Letter_counter.get)
+    count_of_the_most_common_letter = max(Letter_counter.values())
 
-    print('The most common letter is',''.join(sorted(Letter_counter)))
-    print(f'The count of this letter is {most_common_letter}')
+
+    print ('The most common letter is: ' + most_common_letter)
+    print(f'The count of this letter is {count_of_the_most_common_letter}')
     print(f'The word Python occurs {python_count} times in the text')
 
 letters_count()
-
-
-
