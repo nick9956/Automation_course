@@ -4,18 +4,18 @@ Python features a dynamic type system and automatic memory management. It suppor
 Python interpreters are available for many operating systems. CPython, the reference implementation of Python, is open source software and has a community-based development model, as do nearly all of Python's other implementations. Python and CPython are managed by the non-profit Python Software Foundation. Привет из Харькова!
 '''
 
-    Letter_counter = {}
+    letter_counter = {}
 
     python_count = text.count("Python")
     for index in text.lower():
         if index.isalpha():
-            if index in Letter_counter:
-                Letter_counter[index] += 1
+            if index in letter_counter:
+                letter_counter[index] += 1
             else:
-                Letter_counter[index] = 1
+                letter_counter[index] = 1
 
-    most_common_letter = max(Letter_counter, key=Letter_counter.get)
-    count_of_the_most_common_letter = max(Letter_counter.values())
+    most_common_letter = max(letter_counter, key=letter_counter.get)
+    count_of_the_most_common_letter = max(letter_counter.values())
 
 
     print ('The most common letter is: ' + most_common_letter)
