@@ -1,0 +1,15 @@
+setup.py
+Test_Automation_Python_Mentoring_program_hometasks.egg-info/PKG-INFO
+Test_Automation_Python_Mentoring_program_hometasks.egg-info/SOURCES.txt
+Test_Automation_Python_Mentoring_program_hometasks.egg-info/dependency_links.txt
+Test_Automation_Python_Mentoring_program_hometasks.egg-info/top_level.txt
+module_1/FileSizeConversion.py
+module_1/FindMinAndMax.py
+module_1/FizzBuzz.py
+module_1/LettersCount.py
+module_1/MultiplesOfThreeAndFive.py
+module_2/DisplaysDirectoryContents.py
+module_2/IPValidation.py
+module_2/ListFiltering.py
+module_2/UnixFindOnPython.py
+module_2/WorkingWithCSVAndJSONStructures.py
