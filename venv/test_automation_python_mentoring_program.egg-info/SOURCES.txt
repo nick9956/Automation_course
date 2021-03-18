@@ -1,8 +1,4 @@
 setup.py
-Test_Automation_Python_Mentoring_program_hometasks.egg-info/PKG-INFO
-Test_Automation_Python_Mentoring_program_hometasks.egg-info/SOURCES.txt
-Test_Automation_Python_Mentoring_program_hometasks.egg-info/dependency_links.txt
-Test_Automation_Python_Mentoring_program_hometasks.egg-info/top_level.txt
 module_1/file_sie_conversion.py
 module_1/find_min_and_max.py
 module_1/fizz_buzz.py
@@ -14,3 +10,7 @@ module_2/list_filtering.py
 module_2/unix_find_on_python.py
 module_2/working_with_csv_and_json_structures.py
 module_3/import_lib.py
+test_automation_python_mentoring_program.egg-info/PKG-INFO
+test_automation_python_mentoring_program.egg-info/SOURCES.txt
+test_automation_python_mentoring_program.egg-info/dependency_links.txt
+test_automation_python_mentoring_program.egg-info/top_level.txt

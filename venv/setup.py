@@ -1,6 +1,6 @@
 from setuptools import setup
 
-setup(name='Test Automation (Python) Mentoring program hometasks',
+setup(name='test_automation_python_mentoring_program',
       version='1.0',
       description='setup.py file for my project with the hometasks',
       author='Mykola Rudym',

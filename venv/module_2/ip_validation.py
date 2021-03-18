@@ -3,7 +3,8 @@ import  socket
 
 def check_ip_re(ip_address):
     pattern = re.match(r"^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$", ip)
-    return bool(pattern) and all(map(lambda n: 0 <= int(n) <= 255, pattern.groups()))
+    return bool(pattern) and all(map(
+        lambda n: 0 <= int(n) <= 255, pattern.groups()))
 
 def check_ip_inet_pton(address):
     try:

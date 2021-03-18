@@ -3,7 +3,7 @@
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 
-from module_1 import FizzBuzz
+from module_1 import fizz_buzz
 
 
 def print_hi(name):
