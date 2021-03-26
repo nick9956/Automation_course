@@ -26,10 +26,11 @@ class Company(object):
         """
         if employee in self.employees:
             self.employees.remove(employee)
+            self.notify_im_leaving(employee)
 
     def notify_im_leaving(self, employee):
         """ En employee should call this method when leaving a company """
-        raise NotImplementedError()
+        print(f"{employee} was fired")
 
     def do_tasks(self, employee):
         """
@@ -38,10 +39,11 @@ class Company(object):
         them to engineer. That will be a payment
         :rtype: int
         """
+        salary = 10
         if employee in self.employees:
             if isinstance(employee, Engineer):
-                self.__money -= 10
-        raise NotImplementedError()
+                self.__money -= salary
+                Engineer.put_money_into_my_wallet(salary)
 
     def write_reports(self, employee):
         """
@@ -51,21 +53,21 @@ class Company(object):
         :rtype: int
         """
         if employee in self.employees:
-            if isinstance(employee, Engineer):
-                self.__money -= 12
-        raise NotImplementedError()
+            salary = 12
+            if isinstance(employee, Manager):
+                self.__money -= salary
+                Manager.put_money_into_my_wallet(salary)
 
     def make_a_party(self):
         """ Party time! All employees get 5 money """
         # make sure a company is not a bankrupt before and after the party
         # call employee.bonus_to_salary()
-        if self.__money > 0 or (len(self.employees)*5 >= 0):
+        if self.__money > 0 or (self.__money - (len(self.employees)*5) > 0):
             Employee.bonus_to_salary(self, company=self.name)
 
     def show_money(self):
         """ Displays amount of money that company has """
         print(self.__money)
-        raise NotImplementedError()
 
     def go_bankrupt(self):
         """
@@ -110,23 +112,23 @@ class Employee(Person):
     def join_company(self, company):
         # make sure that this person is not employed already
         if self.is_employed == False:
-            self.company = company
-            Company.add_employee(self, employee=self.name)
+            company.add_employee() #What should I inidicate here????
+            self.company = company.name
+
 
     def become_unemployed(self):
         """ Leave current company """
-        self.is_employed = False
         self.company = None
 
     def notify_dismissed(self):
         """ Company should call this method when dismissing an employee """
-        raise NotImplementedError()
+        print("Sorry, you were dismissed")
 
     def bonus_to_salary(self, company, reward=5):
         """
         Company should call this method on each employee when having a party
         """
-        if self.company == Company.__name__:
+        if self.company == company.name:
             self.__money += reward
 
     @property
@@ -138,17 +140,19 @@ class Employee(Person):
         """ Adds the indicated amount of money to persons budget """
         # Engineer and Manager will have to use this method to store their
         # salary, because __money is a private attribute
-        raise NotImplementedError()
+        self.__money += amount
 
     def show_money(self):
         """ Shows how much money person has earned """
         print(self.__money)
-        raise NotImplementedError()
 
     @abc.abstractmethod
     def do_work(self):
         """ This method requires re-implementation """
-        raise NotImplemented('This method requires re-implementation')
+        if isinstance(self.name, Engineer):
+            Company.do_tasks(self.name)
+        elif isinstance(self.name, Manager):
+            Company.write_reports(self.name)
 
     def __repr__(self):
         if self.is_employed:
@@ -159,7 +163,6 @@ class Engineer(Employee):
 
     def __init__(self, name, age, sex=None, address=None):
         super(Engineer, self).__init__(name, age, sex, address)
-
 
 class Manager(Employee):
 
@@ -179,6 +182,8 @@ def check_yourself():
     alex.join_company(fruits_company)
     alex.do_work()
     alex.show_money()
+    print(alex.__dict__)
+    print(fruits_company.__dict__)
 
     # add second company
     doors_company = Company('Windows and doors', address='Mountain ave. 10')
@@ -190,6 +195,7 @@ def check_yourself():
     alex.become_unemployed()
     alex.join_company(doors_company)
     alex.do_work()
+    print(alex.__dict__)
 
     # Bill also wants to work for doors
     bill = Engineer('Bill', 20)
