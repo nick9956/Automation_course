@@ -39,11 +39,9 @@ class Company(object):
         them to engineer. That will be a payment
         :rtype: int
         """
-        salary = 10
-        if employee in self.employees:
-            if isinstance(employee, Engineer):
-                self.__money -= salary
-                Engineer.put_money_into_my_wallet(salary)
+        #salary = 10
+        self.__money = self.__money - 10
+        Engineer.put_money_into_my_wallet(10)
 
     def write_reports(self, employee):
         """
@@ -112,7 +110,10 @@ class Employee(Person):
     def join_company(self, company):
         # make sure that this person is not employed already
         if self.is_employed == False:
-            company.add_employee() #What should I inidicate here????
+            company.add_employee(employee=self) #What
+            # should I
+            # inidicate
+            # here????
             self.company = company.name
 
 
@@ -149,10 +150,9 @@ class Employee(Person):
     @abc.abstractmethod
     def do_work(self):
         """ This method requires re-implementation """
-        if isinstance(self.name, Engineer):
-            Company.do_tasks(self.name)
-        elif isinstance(self.name, Manager):
-            Company.write_reports(self.name)
+        if isinstance(self, Engineer):
+
+
 
     def __repr__(self):
         if self.is_employed:
@@ -161,13 +161,13 @@ class Employee(Person):
 
 class Engineer(Employee):
 
-    def __init__(self, name, age, sex=None, address=None):
-        super(Engineer, self).__init__(name, age, sex, address)
+    def do_work(self):
+        super().do_work(self)
 
 class Manager(Employee):
 
-    def __init__(self, name, age, sex=None, address=None):
-        super(Manager, self).__init__(name, age, sex, address)
+    def do_work(self):
+        super().do_work(self)
 
 
 def check_yourself():
@@ -180,6 +180,7 @@ def check_yourself():
     # add some employees
     alex = Engineer('Alex', 55)
     alex.join_company(fruits_company)
+    print(alex.__dict__)
     alex.do_work()
     alex.show_money()
     print(alex.__dict__)

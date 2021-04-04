@@ -12,9 +12,5 @@ class timer:
     def __exit__(self, exc_type, exc_val, exc_tb):
         end = time.time()
         duration = round(end - self._start, 2)
+        self.duration = duration
         print(f"block  '{self.name}' executed in {duration} sec")
-
-with timer('doing some sleeps'):
-    time.sleep(1)
-    time.sleep(2)
-    time.sleep(3)

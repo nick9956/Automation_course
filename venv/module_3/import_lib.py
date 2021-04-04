@@ -61,4 +61,5 @@ def get_package_path(package_name):
     except ModuleNotFoundError:
         logging.error(error_message)
 
-get_package_path("prettytable")
+if __name__ == "__main__":
+    get_package_path('prettytable')
