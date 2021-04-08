@@ -4,8 +4,8 @@ These are different solutions of "Task 5: Multiples of 3 and 5. Find the best al
 Let's find out which of the proposed algorithms is the most effective
 """
 
-import multiprocessing
-from module_4 import context_manager as cm
+from multiprocessing import Process
+from module_4.context_manager import timer
 
 
 N = 300000000
@@ -50,13 +50,12 @@ def math_formula():
     res = threes + fives - fifteens
     return res
 
-
 def run_all_calculations_in_parallel(*funcs):
     # Use multiprocessing library to run all above functions in parallel
     # Print execution time of each function
     for func in funcs:
-        process = multiprocessing.Process(target=func)
-        with cm.timer(func.__name__):
+        process = Process(target=func)
+        with timer(func.__name__):
             process.start()
             process.join()
 
