@@ -14,8 +14,9 @@ class Company(object):
     def add_employee(self, employee):
         # make sure employee is an instance of Engineer or Manager
         # make sure he is not employed already
-        if isinstance(employee, Engineer) or isinstance(employee, Manager):
-            self.employees.append(employee)
+        if employee.is_employed == False:
+            if isinstance(employee, Engineer) or isinstance(employee, Manager):
+                self.employees.append(employee)
 
     def dismiss_employee(self, employee):
         """
@@ -23,8 +24,8 @@ class Company(object):
         Company should notify employee that he/she was dismissed
         """
         if employee in self.employees:
+            employee.notify_dismissed(self)
             self.employees.remove(employee)
-            Employee.notify_dismissed(employee)
 
     def notify_im_leaving(self, employee):
         """ En employee should call this method when leaving a company """
@@ -38,8 +39,10 @@ class Company(object):
         them to engineer. That will be a payment
         :rtype: int
         """
+        salary = 10
         if employee in self.employees:
-            self.__money -= 10
+            self.__money -= salary
+            return salary
 
     def write_reports(self, employee):
         """
@@ -48,8 +51,10 @@ class Company(object):
         them to manager. That will be a payment
         :rtype: int
         """
+        salary = 12
         if employee in self.employees:
-            self.__money -= 12
+            self.__money -= salary
+            return salary
 
     def make_a_party(self):
         """ Party time! All employees get 5 money """
@@ -60,7 +65,7 @@ class Company(object):
                 self.employees)*bonus) > 0):
             self.__money -= len(self.employees)*bonus
             for employee in self.employees:
-                Employee.bonus_to_salary(employee, self)
+                employee.bonus_to_salary(self)
 
     def show_money(self):
         """ Displays amount of money that company has """
@@ -73,8 +78,8 @@ class Company(object):
         """
         self.__money = 0
         for employee in self.employees:
+            employee.notify_dismissed(self)
             self.employees.remove(employee)
-            Employee.notify_dismissed(employee)
 
     @property
     def is_bankrupt(self):
@@ -116,15 +121,17 @@ class Employee(Person):
                   f"{self.company}")
 
 
-    def become_unemployed(self):
+    def become_unemployed(self, company):
         """ Leave current company """
-        Company.notify_im_leaving(self.company, self)
-        self.company = None
+        if self.company == company:
+            company.notify_im_leaving(self)
+            self.company = None
 
 
-    def notify_dismissed(self):
+    def notify_dismissed(self, company):
         """ Company should call this method when dismissing an employee """
-        self.company = None
+        if self.company == company:
+            self.company = None
 
     def bonus_to_salary(self, company, reward=5):
         """
@@ -159,22 +166,15 @@ class Employee(Person):
         return '%s, unemployed'
 
 class Engineer(Employee):
-    def __init__(self, name, age, sex=None, address=None):
-        super().__init__(name, age, sex=None, address=None)
 
     def do_work(self):
-        Company.do_tasks(self.company, self)
-        self.put_money_into_my_wallet(amount=10)
+        self.put_money_into_my_wallet(self.company.do_tasks(self))
 
 
 class Manager(Employee):
 
-    def __init__(self, name, age, sex=None, address=None):
-        super().__init__(name, age, sex=None, address=None)
-
     def do_work(self):
-        Company.write_reports(self.company, self)
-        self.put_money_into_my_wallet(amount=12)
+        self.put_money_into_my_wallet(self.company.write_reports(self))
 
 
 def check_yourself():
@@ -197,7 +197,7 @@ def check_yourself():
     # Alex wants to work for doors
     alex.join_company(doors_company)
     # ups, already haired
-    alex.become_unemployed()
+    alex.become_unemployed(fruits_company)
     alex.join_company(doors_company)
     alex.do_work()
 
@@ -214,7 +214,7 @@ def check_yourself():
     jane.do_work()
 
     # Bill wants Jane to be his manager, he leaves doors and joins fruits
-    bill.become_unemployed()
+    bill.become_unemployed(doors_company)
     bill.join_company(fruits_company)
 
     # doors becomes a bankrupt
@@ -232,7 +232,6 @@ def check_yourself():
     alex.show_money()
     bill.show_money()
     jane.show_money()
-
 
 if __name__ == '__main__':
     check_yourself()
