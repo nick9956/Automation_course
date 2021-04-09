@@ -168,14 +168,14 @@ class Employee(Person):
 class Engineer(Employee):
 
     def do_work(self):
-        self.put_money_into_my_wallet(self.company.do_tasks(self))
-
+        salary = self.company.do_tasks(self)
+        self.put_money_into_my_wallet(salary)
 
 class Manager(Employee):
 
     def do_work(self):
-        self.put_money_into_my_wallet(self.company.write_reports(self))
-
+        salary = self.company.write_reports(self)
+        self.put_money_into_my_wallet(salary)
 
 def check_yourself():
     """ Now let's operate on objects """
