@@ -71,6 +71,9 @@ class Company(object):
         """ Displays amount of money that company has """
         print(self.__money)
 
+    def get_money(self):
+       return self.__money
+
     def go_bankrupt(self):
         """
         Declare bankruptcy. Company money are drop to 0.
@@ -154,6 +157,9 @@ class Employee(Person):
     def show_money(self):
         """ Shows how much money person has earned """
         print(self.__money)
+
+    def get_money(self):
+        return self.__money
 
     @abc.abstractmethod
     def do_work(self):

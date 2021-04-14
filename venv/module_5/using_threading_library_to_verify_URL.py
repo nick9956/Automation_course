@@ -1,11 +1,11 @@
 import json
 import requests
 import threading
+import socket
 
 link_file = open("./other_files/links.txt", "r")
 
 def check_urls_from_file(url, data):
-
     try:
         request = requests.get(url)
         payload = {
@@ -14,13 +14,13 @@ def check_urls_from_file(url, data):
                      "status_code": request.status_code
                 }
         data.append(payload)
-
-    except ConnectionError:
-        pass
     except:
-        import sys
-        # prints `type(e), e` where `e` is the last exception
-        print(sys.exc_info()[:2])
+        faield_payload = {
+            "url": url,
+            "is_ok": False,
+            "status_code": None
+        }
+        data.append(faield_payload)
 
 def write_data_in_json_file(results):
     with open('./other_files/data.json', 'w', encoding='utf-8') as f:
