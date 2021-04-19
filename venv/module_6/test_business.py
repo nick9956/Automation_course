@@ -1,9 +1,11 @@
 import pytest
+import time
 
 from module_4.business import *
 
 @pytest.mark.smoke
 def test_add_employee(alex, jane, fruits_company):
+    time.sleep(2)
     new_employees = [alex, jane]
     for employee in new_employees:
         employee.join_company(fruits_company)
